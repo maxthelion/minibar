@@ -1,0 +1,138 @@
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Minibar test</title>
+	<style type="text/css" media="screen">
+	* {
+	  font-family: helvetica;
+	}
+	 #wrapper {
+	   width: 800px;
+	   margin: 0 auto;
+	 }
+	 #maincol {
+	   width: 70%;
+	   float: left;
+	 }
+	 #minibar {
+	   width: 100px;
+	   position: fixed;
+	   right: 0;
+	 }
+	 #content {
+	   background: rgb(255,255,0);
+	 }
+	 .comment {
+	   margin-top: 30px;
+	   background: rgb(200,200,200);
+	 }
+	 .author {
+	   background: rgb(255, 100, 100);
+	 }
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript"></script> 
+	
+	<script type="text/javascript" charset="utf-8">
+	  var MiniBar = function(canvas_id, holder_elem) {
+	    var canvas = document.getElementById(canvas_id)
+	    var ctx = canvas.getContext('2d'); 
+	    
+	    var resize_canvas = function(){
+        canvas.height =  $(window).height();
+	    };
+	    
+	    var draw = function(){
+	      ctx.clearRect(0,0,100, $(window).height())
+	      draw_content();
+	      draw_comments();
+	      draw_viewer();
+	    }
+	    
+	    var draw_content = function(){
+        var	content_height = $('#content').height();
+        ctx.fillStyle = "rgb(255,255,0)";  
+        ctx.fillRect (0, 0, 100, content_height * scale_factor() );
+	    }
+	    
+	    var draw_comments = function(){
+	      $(".comment").each(function(){
+	        if (this.className.indexOf('author') != -1){
+	          ctx.fillStyle = "rgb(255, 100, 100)"; 
+          } else {
+            ctx.fillStyle = "rgb(200,200,200)";  
+          }
+          ctx.fillRect(0, $(this).offset().top * scale_factor(), 100, $(this).height() * scale_factor() );
+	      })
+	    }
+	    
+	    var scale_factor = function(){
+	      return $(window).height() / holder_elem.height();
+	    }
+	    
+	    var draw_viewer = function(){
+	      ctx.fillStyle = "rgba(255,255,255,0.5)";  
+        ctx.strokeRect(0, $(window).scrollTop() * scale_factor(), 100, $(window).height() * scale_factor() );
+	    }
+	    
+	    $(window).scroll(function(){ draw() })
+	    resize_canvas();
+	    draw();
+	  };
+	  
+	  $().ready(function(){
+	    var miniBar = new MiniBar('minibar_canvas', $('#maincol'))
+	  });
+	</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="maincol">
+    <div id="content">
+      <h1>
+        My Blog post
+      </h1>
+  
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+
+    </div>
+
+    <div id="comments">
+    
+      <h2>Comments</h2>
+    
+      <div class="comment">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+  
+      <div class="comment">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+  
+      <div class="comment author">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+      
+      <div class="comment">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+  
+      <div class="comment">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+  
+      <div class="comment">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+    </div>
+  </div>
+  <div id="minibar">
+    <canvas id="minibar_canvas"></canvas>
+  </div>
+</div>
+</body>
+</html>
